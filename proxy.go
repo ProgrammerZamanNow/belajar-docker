@@ -8,14 +8,10 @@ import (
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		resp, err := http.Get("http://target-server/")
+		resp, _ := http.Get("http://example.com/")
 		defer resp.Body.Close()
-		if err != nil {
-			fmt.Fprintf(w, "Ups, Error!")
-		} else {
-			body, _ := ioutil.ReadAll(resp.Body)
-			fmt.Fprintf(w, string(body))
-		}
+		body, _ := ioutil.ReadAll(resp.Body)
+		fmt.Fprintf(w, string(body))
 	})
 
 	http.ListenAndServe(":8080", nil)
